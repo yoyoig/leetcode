@@ -1,4 +1,4 @@
-package com.yoyoig.leetcode.remove_duplicates;
+package com.yoyoig.leetcode.removeduplicates;
 
 /**
  * <p>
