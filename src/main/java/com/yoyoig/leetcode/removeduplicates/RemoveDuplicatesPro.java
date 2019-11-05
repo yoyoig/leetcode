@@ -14,7 +14,9 @@ public class RemoveDuplicatesPro {
             return nums.length;
         }
         int i = 0;
-        // j 在前面，每次不等 i++ j++，并将i+1的位置和j的位置互换
+        // j 在前面，i 在后
+        // 相等则 j++
+        // 不等则 i++ 并将i+1的位置和j的位置互换
         // 对于[1,2,3,4]的情况有多余的替换操作。
         for (int j = 1; j < nums.length; j++) {
             if (nums[i] != nums[j]) {
