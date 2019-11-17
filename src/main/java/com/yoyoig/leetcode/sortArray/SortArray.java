@@ -108,14 +108,6 @@ public class SortArray {
         return resultList;
     }
 
-    public static void main(String[] args) {
-        int[] nums = {5, 2, 3, 1};
-        SortArray sortArray = new SortArray();
-        int[] ints = sortArray.mergeAndSort(nums, 0, nums.length - 1);
-        for (int anInt : ints) {
-            System.out.println(anInt);
-        }
-    }
 
     /**
      * mergeAndSort(n) = merge(mergeAndSort(0,p),mergeAndSort(p+1,r))
@@ -136,7 +128,7 @@ public class SortArray {
     }
 
     /**
-     * merge(mergendSort(0,p),mergeAndSort(p,r))
+     * merge(mergeSort(0,p),mergeAndSort(p,r))
      *
      * @return
      */
@@ -179,14 +171,61 @@ public class SortArray {
      * @param nums
      * @return
      */
-    public List<Integer> quickSort(int[] nums) {
-
+    public List<Integer> quickSortSolution(int[] nums) {
+        this.quickSort(nums,0,nums.length-1);
         List<Integer> resultList = new ArrayList<>(nums.length);
         for (int num : nums) {
             resultList.add(num);
         }
         return resultList;
     }
+
+    public static void main(String[] args) {
+        int[] nums = {5,4,3,2,1};
+        SortArray sortArray = new SortArray();
+        sortArray.quickSort(nums, 0, nums.length - 1);
+        for (int anInt : nums) {
+            System.out.println(anInt);
+        }
+    }
+
+    private void quickSort(int[] nums,int p,int r){
+        if (p >= r) {
+            return;
+        }
+        int m = this.segmentationAndPosition(nums,p,r);
+        quickSort(nums,p,m);
+        quickSort(nums,m+1,r);
+    }
+
+    /**
+     * 分割 并获取中间位置
+     * @param nums
+     * @param p
+     * @param r
+     * @return
+     */
+    private int segmentationAndPosition(int[] nums,int p,int r){
+        // i 标记第一个大于 base的坐标和数字， i 之前都是小于base ，i以及之后都是大于base
+        int i = p;
+        int base = nums[r];
+        for(int j = p; j < r; j++) {
+            if (nums[j] < base && i == j) {
+                i ++;
+            } else if (nums[j] < base) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i ++;
+            }
+        }
+        int temp = nums[i];
+        nums[i] = nums[r];
+        nums[r] = temp;
+        // 注意 i 会先 j 到达r，如果i = r 会死循环
+        return --i;
+    }
+
 
 
 }
